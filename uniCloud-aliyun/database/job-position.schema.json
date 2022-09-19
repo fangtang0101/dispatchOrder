@@ -1,0 +1,22 @@
+{
+	"bsonType": "object",
+	"required": ["name"],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"name":{
+			"bsonType":"string",
+			"title":"职能-职位的字典码",
+			"trim":"both",
+			"minLength": 2,
+			"maxLength": 17
+		}
+	}
+}

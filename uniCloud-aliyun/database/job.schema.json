@@ -1,0 +1,62 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"position":{
+			"bsonType":"string",
+			"title":"岗位 ",
+			"description":"前端，后端，项目经理等这些",
+			"foreignKey": "job-position.name"
+		},
+		"payment":{
+			"bsonType":"int",
+			"title":"总报酬",
+			"description":""
+		},
+		"need_skill_list":{
+			"bsonType":"array",
+			"title":"所需技能",
+			"description":"在skill 表中",
+			"foreignKey": "skill.name"
+		},
+		"need_people":{
+			"bsonType":"int",
+			"title":"所需人数",
+			"description":""
+		},
+		"registration_info":{
+			"bsonType":"array",
+			"title":"报名信息",
+			"description":"报名信息",
+			"required": ["user_id","role","info"],
+			"properties": {
+				"user_id":{
+					"bsonType":"string",
+					"title":"报名信息中的角色-队长-队员",
+					"foreignKey": "uni-id-users._id"
+				},
+				"role":{
+					"bsonType":"string",
+					"title":"报名信息中的角色-队长-队员",
+					"foreignKey": "registration-role.schema.name"
+				},
+				"info":{
+					"bsonType":"string",
+					"title":"报名信息中的竞选宣言",
+					"trim":"both",
+					"minLength": 2,
+					"maxLength": 17
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,64 @@
+{
+	"bsonType": "object",
+	"required": ["name","payment","registration_deadline"],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"name":{
+			"bsonType":"string",
+			"title":"项目名称",
+			"description":"",
+			"trim":"both",
+			"minLength": 1
+		},
+		"payment":{
+			"bsonType":"int",
+			"title":"总报酬",
+			"description":""
+		},
+	    "registration_deadline": {
+			"bsonType": "timestamp",
+			"title": "报名截止时间",
+			"description": "报名截止时间"
+	    },
+		"desc":{
+			"bsonType":"string",
+			"title":"项目描述",
+			"description":"",
+			"minLength": 1
+		},
+		"status":{
+			"bsonType":"string",
+			"title":"状态 ",
+			"description":"项目的状态-从project-status 的name字段取值",
+			"foreignKey": "project-status.name",
+			"enum": {
+				"collection": "project-status",
+				"field": "name as value, name as text"
+			}
+		},
+		"need_people":{
+			"bsonType":"int",
+			"title":"所需人数",
+			"description":""
+		},
+		"job_list":{
+			"bsonType":"array",
+			"arrayType": "string",
+			"title":"所需人数",
+			"description":"报名信息-在另一个表里job",
+			"foreignKey": "job._id",
+			"enum": {
+				"collection": "job",
+				"field": "_id as value, _id as text"
+			}
+		}
+	}
+}

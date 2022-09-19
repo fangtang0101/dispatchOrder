@@ -1,0 +1,7 @@
+{
+  "name": "queryProjectList",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

@@ -1,0 +1,153 @@
+{
+	"bsonType": "object",
+	"required": ["openid","username"],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"openid":{
+			"bsonType":"string",
+			"title":"小程序ID",
+			"description":"小程序",
+			"trim":"both",
+			"minLength": 1
+		},
+		"username":{
+			"bsonType":"string",
+			"title":"用户名，不允许重复",
+			"description":"真实姓名",
+			"trim":"both",
+			"minLength": 1
+		},
+		"password":{
+			"bsonType":"string",
+			"title":"密码",
+			"trim":"both"
+		},
+		"nickname":{
+			"bsonType":"string",
+			"title":"用户昵称",
+			"description": "用户昵称-小程序中获取的微信昵称",
+			"trim":"both",
+			"minLength": 1
+		},
+		"gender":{
+			"bsonType":"Integer",
+			"title":"性别",
+			"description":"用户性别：0 未知 1 男性 2 女性",
+			"defaultValue":0,
+			"enum":[
+					  {
+						"text": "未知",
+						"value": 0
+					  },
+					  {
+						"text": "男",
+						"value": 1
+					  },
+					  {
+						"text": "女",
+						"value": 2
+					  }
+			]
+		},
+	  "status": {
+		"bsonType": "int",
+		"description": "用户状态：0 正常 1 禁用 2 审核中 3 审核拒绝",
+		"title": "用户状态",
+		"defaultValue": 0,
+		"enum": [
+		  {
+			"text": "正常",
+			"value": 0
+		  },
+		  {
+			"text": "禁用",
+			"value": 1
+		  },
+		  {
+			"text": "审核中",
+			"value": 2
+		  },
+		  {
+			"text": "审核拒绝",
+			"value": 3
+		  }
+		]
+	  },
+      "mobile": {
+        "bsonType": "string",
+        "title": "手机号码",
+        "description": "手机号码",
+        "pattern": "^\\+?[0-9-]{3,20}$",
+        "trim": "both"
+      },
+      "mobile_confirmed": {
+        "bsonType": "int",
+        "description": "手机号验证状态：0 未验证 1 已验证",
+        "title": "手机号验证状态",
+        "defaultValue": 0,
+        "enum": [
+          {
+            "text": "未验证",
+            "value": 0
+          },
+          {
+            "text": "已验证",
+            "value": 1
+          }
+        ]
+      },
+      "email": {
+        "bsonType": "string",
+        "format": "email",
+        "title": "邮箱",
+        "description": "邮箱地址",
+        "trim": "both"
+      },
+      "email_confirmed": {
+        "bsonType": "int",
+        "description": "邮箱验证状态：0 未验证 1 已验证",
+        "title": "邮箱验证状态",
+        "defaultValue": 0,
+        "enum": [
+          {
+            "text": "未验证",
+            "value": 0
+          },
+          {
+            "text": "已验证",
+            "value": 1
+          }
+        ]
+      },
+      "avatar": {
+        "bsonType": "string",
+        "title": "头像地址",
+        "description": "头像地址",
+        "trim": "both"
+      },
+      "score": {
+        "bsonType": "int",
+        "description": "用户积分，也就是权重，默认100",
+		"defaultValue":100
+      },
+      "register_date": {
+        "bsonType": "timestamp",
+        "description": "注册时间",
+        "forceDefaultValue": {
+          "$env": "now"
+        }
+      },
+      "token": {
+        "bsonType": "array",
+        "description": "用户token"
+      }
+	}
+}
