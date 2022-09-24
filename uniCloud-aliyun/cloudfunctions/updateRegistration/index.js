@@ -9,7 +9,7 @@ exports.main = async (event, context) => {
 	})
 	const {job_id,user_id,role,info} = event
 	
-	if(!job_id || !user_id || !user_id || !role || !info){
+	if(!job_id || !user_id || !role || !info){
 		return {
 			code:500,
 			mesg:'参数不对'

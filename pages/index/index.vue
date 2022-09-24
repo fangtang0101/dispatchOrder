@@ -10,6 +10,7 @@
 				<view>所需人数:{{item.need_people}}</view>
 			</view>
 		</view>
+		<button @click="publishProject">发布项目</button>
 	</view>
 </template>
 <script setup>
@@ -27,7 +28,6 @@
 				if(res.result && res.result.data){
 					dataList.value = [...res.result.data]
 				}
-				console.log('queryProjectList ====',res)
 			},
 			complete:()=>{
 				uni.hideLoading()
@@ -36,6 +36,9 @@
 	})
 	function gotoDetail (item) {
 		uni.navigateTo({url:`/pages/detail/detail?_id=${item._id}`});
+	}
+	function publishProject(){
+		uni.navigateTo({url:`/pages/publish/publish`});
 	}
 </script>
 
