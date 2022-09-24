@@ -23,6 +23,12 @@
         "text": "首页"
       },
       {
+        "pagePath": "pages/test/test",
+        "iconPath": "static/logo.png",
+        "selectedIconPath": "static/logo.png",
+        "text": "测试"
+      },
+      {
         "pagePath": "pages/my/my",
         "iconPath": "static/logo.png",
         "selectedIconPath": "static/logo.png",

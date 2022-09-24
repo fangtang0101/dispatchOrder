@@ -2,7 +2,7 @@
 exports.main = async (event, context) => {
 	//event为客户端上传的参数
 	console.log('event : ', event)
-	// const{_id} = event
+	const{_id} = event
 	// let dbRes = {}
 	// // 先保存一份完好的 
 	// const db = uniCloud.database()
@@ -28,7 +28,7 @@ exports.main = async (event, context) => {
 		event,
 		context 
 	})
-	const project = db.collection('project').where('_id == "631f0f0b5d652b0001f324b5"').getTemp()
+	const project = db.collection('project').where(`_id == "${_id}"`).getTemp()
 	const job = db.collection('job').getTemp()
 	const dbRes =  db.collection(project,job).get()
 	return dbRes

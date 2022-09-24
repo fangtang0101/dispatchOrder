@@ -1,44 +1,55 @@
 <template>
 	<view class="content">
+		<view v-for="item in dataList" class="card"  @click="gotoDetail(item)">
+			<view>
+				<view>{{item.name}}</view>
+				<view>总报酬:{{item.payment}}</view>
+			</view>
+			<view>
+				<view>{{item.status}}</view>
+				<view>所需人数:{{item.need_people}}</view>
+			</view>
+		</view>
 	</view>
 </template>
 <script setup>
 	import { ref } from 'vue';
 	import { onShow } from '@dcloudio/uni-app';
 	const db = uniCloud.database();
-	let title = ref("")
+	let title = ref("") 
+	const dataList = ref([])		
 	// NOTE:千万注意：所有方法后面不能加,;否则方法 相当于没有定义
-	// 问题：1.如何设置字段的值不重复
 	onShow(()=>{
 		title.value = "三年三月"
+		uniCloud.callFunction({
+			name:'queryProjectList',
+			success:(res) => {
+				if(res.result && res.result.data){
+					dataList.value = [...res.result.data]
+				}
+				console.log('queryProjectList ====',res)
+			},
+			complete:()=>{
+				uni.hideLoading()
+			}
+		})
 	})
-
+	function gotoDetail (item) {
+		uni.navigateTo({url:`/pages/detail/detail?_id=${item._id}`});
+	}
 </script>
 
-<style>
-	.content {
+<style lang="less">
+	.card{
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
+		border: 2px solid #efefef;
+		border-radius: 5rpx;
+		margin: 10rpx;
+		padding: 20rpx 10rpx;
+		.card-item{
+			
+		}
 	}
 
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
 </style>

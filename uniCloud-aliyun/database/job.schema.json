@@ -47,7 +47,7 @@
 				"role":{
 					"bsonType":"string",
 					"title":"报名信息中的角色-队长-队员",
-					"foreignKey": "registration-role.schema.name"
+					"foreignKey": "registration-role.name"
 				},
 				"info":{
 					"bsonType":"string",

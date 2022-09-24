@@ -18,7 +18,16 @@
 				"navigationBarTitleText": "测试"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"tabBar": {
 		"color": "#7A7E83",
 		"selectedColor": "#3cc51f",
@@ -29,7 +38,14 @@
 			"iconPath": "static/logo.png",
 			"selectedIconPath": "static/logo.png",
 			"text": "首页"
-		}, {
+		},
+		{
+			"pagePath": "pages/test/test",
+			"iconPath": "static/logo.png",
+			"selectedIconPath": "static/logo.png",
+			"text": "测试"
+		},
+		{
 			"pagePath": "pages/my/my",
 			"iconPath": "static/logo.png",
 			"selectedIconPath": "static/logo.png",
