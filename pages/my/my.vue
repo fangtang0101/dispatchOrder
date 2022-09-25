@@ -28,7 +28,7 @@
 		<view class="line">
 			我的信息
 			<button>选取组长</button>
-			<button>编辑</button>
+			<button @click="editInfo">编辑</button>
 		</view>
 		<view class="cont">
 			<view class="cont-item">
@@ -48,6 +48,7 @@
 				<textarea v-model="userInfo.desc" placeholder=""/>
 			</view>
 		</view>
+
 		<view class="line">
 			我的单子
 		</view>
@@ -79,20 +80,9 @@
 			}
 		})
 	}
-	// function login(){
-	// 	const data = {openid="111"}
-	// 	uniCloud.callFunction({
-	// 		name:'login',
-	// 		data,
-	// 		success:(res) => {
-	// 			console.log('login ====',res)
-	// 		},
-	// 		complete:()=>{
-	// 			uni.hideLoading()
-	// 		}
-	// 	})
-	// }
-
+	function editInfo(){
+		uni.navigateTo({url:`/pages/editInfo/editInfo?openid=123456`});
+	}
 </script>
 
 <style lang="less">

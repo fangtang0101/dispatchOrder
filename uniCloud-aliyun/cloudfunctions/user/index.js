@@ -23,6 +23,14 @@ exports.main = async (event, context) => {
 				return dbRes
 			}
 		}
+		if(action === 'update'){
+			const dbRes = await db.collection('user').where({openid})
+			  .update({
+				...otherArgs
+			  });
+			  return dbRes
+		}
+		
 	}
 	//返回数据给客户端
 	return event
