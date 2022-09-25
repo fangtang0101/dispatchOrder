@@ -1,6 +1,6 @@
 {
 	"bsonType": "object",
-	"required": ["openid","username"],
+	"required": ["openid"],
 	"permission": {
 		"read": true,
 		"create": true,
@@ -138,6 +138,56 @@
         "description": "用户积分，也就是权重，默认100",
 		"defaultValue":100
       },
+      "money": {
+        "bsonType": "int",
+        "description": "佣金",
+		"defaultValue":0
+      },
+      "registration_count": {
+        "bsonType": "int",
+        "description": "报名次数",
+		"defaultValue":0
+      },
+      "order_count": {
+        "bsonType": "int",
+        "description": "接单次数",
+		"defaultValue":0
+      },
+      "response_count": {
+        "bsonType": "int",
+        "description": "响应时长",
+		"defaultValue":0
+      },
+      "work_status": {
+        "bsonType": "int",
+        "description": "工作状态：0 全职 1 兼职",
+        "title": "工作状态",
+        "defaultValue": 0,
+        "enum": [
+          {
+            "text": "全职",
+            "value": 0
+          },
+          {
+            "text": "兼职",
+            "value": 1
+          }
+        ]
+      },
+		"skill_list":{
+			"bsonType":"array",
+			"title":"掌握技能",
+			"description":"在skill 表中",
+			"foreignKey": "skill.name"
+		},
+	
+      "desc": {
+        "bsonType": "string",
+        "title": "项目描述",
+        "description": "项目描述",
+        "trim": "both"
+      },
+	  
       "register_date": {
         "bsonType": "timestamp",
         "description": "注册时间",

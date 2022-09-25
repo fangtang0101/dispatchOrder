@@ -1,6 +1,5 @@
 <template>
 	<view class="content">
-		{{dataDetail}}
 		<view class="cont-item">
 			<view>项目名称：</view>
 			<input v-model="dataDetail.name" class="uni-input" focus placeholder="请输入" />
@@ -94,7 +93,6 @@
 		job_list.value.push(currentJob.value)
 	}
 	function publish(){
-		debugger
 		const data = {...dataDetail.value,job_list:job_list.value,status:'报名中'}
 		console.log('publish ===',data)
 		uniCloud.callFunction({
