@@ -1,41 +1,83 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
-if (!Array) {
-  const _component_uni_icons = common_vendor.resolveComponent("uni-icons");
-  const _component_uni_list_chat = common_vendor.resolveComponent("uni-list-chat");
-  (_component_uni_icons + _component_uni_list_chat)();
-}
 const _sfc_main = {
   __name: "index",
   setup(__props) {
     common_vendor.pn.database();
     let title = common_vendor.ref("");
-    let avatarList = common_vendor.ref([{
-      url: "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png"
-    }, {
-      url: "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png"
-    }, {
-      url: "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png"
-    }]);
+    const dataList = common_vendor.ref([]);
+    const useInfo = common_vendor.ref({});
     common_vendor.onShow(() => {
       title.value = "\u4E09\u5E74\u4E09\u6708";
+      common_vendor.pn.callFunction({
+        name: "queryProjectList",
+        success: (res) => {
+          if (res.result && res.result.data) {
+            dataList.value = [...res.result.data];
+          }
+        },
+        complete: () => {
+          common_vendor.index.hideLoading();
+        }
+      });
+      wx.login({
+        success: (res) => {
+          common_vendor.pn.callFunction({
+            name: "login",
+            data: { code: res.code },
+            success: (res2) => {
+              getApp().globalData.openid = res2.result.openid;
+              getApp().globalData.useInfo = res2.result;
+              useInfo.value = res2.result;
+            }
+          });
+        }
+      });
     });
+    function gotoDetail(item) {
+      common_vendor.index.navigateTo({ url: `/pages/detail/detail?_id=${item._id}` });
+    }
+    function publishProject() {
+      common_vendor.index.navigateTo({ url: `/pages/publish/publish` });
+    }
+    function login() {
+      common_vendor.index.getUserProfile({
+        desc: "queryProjectList",
+        success: (res) => {
+          console.log("res ===", res.userInfo);
+          const { nickName, avatarUrl } = res.userInfo;
+          common_vendor.pn.callFunction({
+            name: "user",
+            data: { openid: getApp().globalData.openid, action: "update", nickname: nickName, avatar: avatarUrl },
+            success: (res2) => {
+              console.log("\u66F4\u65B0\u6210\u529F====");
+              useInfo.value = res2.result;
+              getApp().globalData.useInfo = res2.result;
+            }
+          });
+        },
+        fail: (res) => {
+          console.log("res \u5931\u8D25 ===", res);
+        }
+      });
+    }
     return (_ctx, _cache) => {
-      return {
-        a: common_vendor.p({
-          type: "star-filled",
-          color: "#999",
-          size: "18"
+      return common_vendor.e({
+        a: !useInfo.value.nickname
+      }, !useInfo.value.nickname ? {
+        b: common_vendor.o(login)
+      } : {
+        c: common_vendor.f(dataList.value, (item, k0, i0) => {
+          return {
+            a: common_vendor.t(item.name),
+            b: common_vendor.t(item.payment),
+            c: common_vendor.t(item.status),
+            d: common_vendor.t(item.need_people),
+            e: common_vendor.o(($event) => gotoDetail(item))
+          };
         }),
-        b: common_vendor.p({
-          title: "uni-app",
-          ["avatar-list"]: common_vendor.unref(avatarList),
-          note: "\u60A8\u6536\u5230\u4E00\u6761\u65B0\u7684\u6D88\u606F",
-          time: "2020-02-02 20:20",
-          ["badge-positon"]: "left",
-          ["badge-text"]: "dot"
-        })
-      };
+        d: common_vendor.o(publishProject)
+      });
     };
   }
 };

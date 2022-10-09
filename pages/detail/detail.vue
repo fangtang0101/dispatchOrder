@@ -14,7 +14,7 @@
 		</view>
 		<view class="cont-item">
 			<view>报名截止时间：</view>
-			<view>{{dataDetail.registration_deadline}}</view>
+			<view>{{transferTime(dataDetail.registration_deadline)}}</view>
 		</view>
 		<view class="cont-item">
 			<view>状态：</view>
@@ -31,7 +31,8 @@
 			<view>{{item.position}}</view>
 			<view>{{item.need_people}}人</view>
 			<view>{{item.payment}}元</view>
-			<button @click="open(item)">立即报名</button>
+			<button v-if="hasRegister">您已报名</button>
+			<button v-else @click="open(item)">立即报名</button>
 		</view>
 		<uni-popup ref="popup" :mask-click="false" background-color="#fff">
 			<view class="cont-item">
@@ -68,13 +69,24 @@
 	</view>
 </template>
 <script setup>
-	import { ref } from 'vue';
-	import { onShow ,onLoad} from '@dcloudio/uni-app';
+	import { ref ,computed} from 'vue';
+	import { onShow ,onLoad } from '@dcloudio/uni-app';
 	const dataDetail = ref({}) 
 	let popup = ref(null)
 	let currentJob = ref({})
 	let currentRegistInfo = ref({info:'',role:''})
 	const roleList = ref(['队长','队员'])
+	// 是否已经报名
+	let hasRegister = computed(()=>{
+		let flag = false
+		dataDetail.value.job_list.forEach(job=>{
+			console.log(getApp().globalData.useInfo)
+			console.log(job.registration_info)
+			let res = job.registration_info.find(v=>v.user_id === getApp().globalData.useInfo._id)
+			if(res) flag = true
+		})
+		return flag
+	}) // 是否已经报名
 	// NOTE:千万注意：所有方法后面不能加,;否则方法 相当于没有定义
 	onLoad((option)=>{
 		const {_id} = option
@@ -86,6 +98,7 @@
 				console.log('queryProjectDetail ====',res)
 				if(res.result && res.result.data && res.result.data.length>0){
 					dataDetail.value = res.result.data[0]
+					// 判断本人是否已经报名
 				}
 			},
 			complete:()=>{
@@ -104,11 +117,10 @@
 		 console.log('e ==========',e)
 		 const {value} = e.detail
 		 currentRegistInfo.value = {...currentRegistInfo.value,role:value}
-	
 	}
 	function submit(){
-		const args = {user_id:'fang111',...currentRegistInfo.value,job_id:currentJob.value._id}
-		debugger
+		const {_id} = getApp().globalData.useInfo
+		const args = {user_id:_id,...currentRegistInfo.value,job_id:currentJob.value._id}
 		uniCloud.callFunction({
 			name:'updateRegistration',
 			data:args,
@@ -123,6 +135,27 @@
 			}
 		})
 	}
+	function transferTime(time){
+		try{
+			let date = new Date(time)
+			let yyyy = date.getFullYear()
+			let MM = date.getMonth()+1
+			let dd = date.getDate()
+			let HH = date.getHours()
+			let mm = date.getMinutes()
+			let ss = date.getSeconds()
+			MM = MM<10 ? '0'+MM : MM
+			dd = dd<10?"0"+dd:dd;
+			HH = HH<10?"0"+HH:HH;
+			mm = mm<10?"0"+mm:mm;
+			ss = ss<10?"0"+ss:ss;
+			date = `${yyyy}-${MM}-${dd} ${HH}:${mm}:${ss}`
+			return date
+		}catch(e){
+			return '时间不详'
+		}
+	}
+transferTime
 </script>
 
 <style lang="less">

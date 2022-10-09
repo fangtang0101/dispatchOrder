@@ -25,7 +25,7 @@ exports.main = async (event, context) => {
 	}
 	// 查询 所有项目
 	if(action === 'check'){
-		dbRes = await db.collection('project,job').get() 
+		dbRes = await db.collection(table).get() 
 		return dbRes
 	}
 	//返回数据给客户端

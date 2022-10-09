@@ -1,23 +1,39 @@
-
-.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+.content .header {
+  border: 1rpx solid #999;
+  border-radius: 5rpx;
+  padding: 15rpx;
+  margin: 15rpx;
 }
-.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
+.content .header .header-top {
+  display: flex;
+  align-items: center;
 }
-.text-area {
-		display: flex;
-		justify-content: center;
+.content .header .header-top img {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
 }
-.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+.content .header .header-top text {
+  margin-left: 15rpx;
+}
+.content .header .header-bottom {
+  display: flex;
+  margin-top: 15rpx;
+}
+.content .header .header-bottom .card {
+  flex: 0 0 25%;
+  text-align: center;
+}
+.content .header .header-bottom .card view:first-child {
+  color: #999;
+}
+.content .line {
+  display: flex;
+}
+.content .cont-item {
+  display: flex;
+  margin: 10rpx;
+}
+.content .cont-item view:first-child {
+  width: 250rpx;
 }

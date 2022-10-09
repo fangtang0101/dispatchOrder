@@ -198,6 +198,10 @@
       "token": {
         "bsonType": "array",
         "description": "用户token"
+      },
+      "createtime": {
+        "bsonType": "date",
+        "description": "创建时间"
       }
 	}
 }

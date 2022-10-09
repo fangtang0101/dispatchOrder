@@ -31,12 +31,11 @@
       "outputPath": ""
     },
     "disableUseStrict": false,
-    "useCompilerPlugins": false,
-    "minifyWXML": true
+    "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.26.1",
-  "appid": "wx578945c34c63a50b",
+  "appid": "wxb196d2071dd07e29",
   "projectname": "dispatchOrder",
   "condition": {},
   "editorSetting": {

@@ -1,0 +1,7 @@
+.cont-item {
+  display: flex;
+  margin: 10rpx;
+}
+.cont-item view:first-child {
+  width: 250rpx;
+}

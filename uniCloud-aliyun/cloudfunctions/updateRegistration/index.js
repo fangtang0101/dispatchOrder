@@ -15,13 +15,12 @@ exports.main = async (event, context) => {
 			mesg:'参数不对'
 		}
 	}
-	
 	const collection = db.collection("job")
 	
 	let res_all = await collection.where({_id:job_id}).get()
-	let old_registration_info = []
+	let old_registration_info = {}
 	if(res_all.data.length>0){
-		 old_registration_info = res_all.data[0].registration_info
+		 old_registration_info = res_all.data[0].registration_info || []
 	}
 	const dbRes = await collection.where({_id:job_id})
 	  .update({

@@ -1,0 +1,30 @@
+.content .cont-item {
+  display: flex;
+  margin: 10rpx;
+}
+.content .cont-item view:first-child {
+  width: 250rpx;
+}
+.content .job-list {
+  display: flex;
+  margin: 10rpx;
+  border: 1rpx solid #999;
+  border-radius: 5rpx;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30rpx;
+  height: 100rpx;
+}
+.content .job-list view {
+  margin-left: 10rpx;
+}
+.content .job-list button {
+  margin: 0rpx;
+}
+.content textarea {
+  border: solid 1px #999;
+}
+.content .btn-box {
+  display: flex;
+  justify-content: center;
+}

@@ -24,11 +24,14 @@ exports.main = async (event, context) => {
 			}
 		}
 		if(action === 'update'){
-			const dbRes = await db.collection('user').where({openid})
-			  .update({
-				...otherArgs
-			  });
-			  return dbRes
+			dbRes = await db.collection('user').where({openid})
+			  .update({...otherArgs})
+			  return{
+				  _id:dbRes.id,
+				  openid,
+				  nickname:otherArgs.nickname,
+				  avatar:otherArgs.avatar,
+			  }
 		}
 		
 	}

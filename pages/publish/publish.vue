@@ -18,7 +18,7 @@
 		</view>
 		<view class="cont-item">
 			<view>项目描述：</view>
-			<textarea v-model="dataDetail.desc" placeholder="请输入竞选宣言"/>
+			<textarea v-model="dataDetail.desc" placeholder="请输入描述"/>
 		</view>
 		<view class="cont-item">
 			<button @click="open">添加职能</button>
@@ -80,6 +80,21 @@
 				uni.hideLoading()
 			}
 		})
+		// 获取字典码的值
+		uniCloud.callFunction({
+			name:'dict',
+			data:{table:'job-position',action:'check'},
+			success:(res) => {			
+				if(res.result && res.result.data.length>0) selectPosition.value = res.result.data.map(item=>{return{value:item.name,text:item.name}})
+			}
+		})
+		uniCloud.callFunction({
+			name:'dict',
+			data:{table:'skill',action:'check'},
+			success:(res) => {			
+				if(res.result && res.result.data.length>0) selectSkill.value = res.result.data.map(item=>{return{value:item.name,text:item.name}})
+			}
+		})
 	})
 	function open(){
 		currentJob.value = {position:'',payment:'',need_skill_list:[],need_people:''}
@@ -99,7 +114,8 @@
 			name:'publishProject',
 			data,
 			success:(res) => {
-				console.log('publishProject ====',res)
+				// 返回
+				uni.navigateBack()
 			},
 			complete:()=>{
 				uni.hideLoading()

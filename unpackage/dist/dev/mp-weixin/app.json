@@ -2,7 +2,10 @@
   "pages": [
     "pages/index/index",
     "pages/my/my",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/detail/detail",
+    "pages/publish/publish",
+    "pages/editInfo/editInfo"
   ],
   "window": {
     "navigationBarTextStyle": "black",
