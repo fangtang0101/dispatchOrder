@@ -18,22 +18,21 @@ const _sfc_main = {
     });
     const selectSkill = common_vendor.ref([{ value: "Node", text: "Node" }, { value: "uni-app", text: "uni-app" }]);
     common_vendor.onShow(() => {
-      login();
-    });
-    function login() {
-      const data = { openid: "123456", action: "login" };
+      console.log("app-userinfo===", getApp().globalData.useInfo);
+      if (getApp().globalData.useInfo) {
+        userInfo.value = getApp().globalData.useInfo;
+      }
       common_vendor.pn.callFunction({
-        name: "user",
-        data,
+        name: "dict",
+        data: { table: "skill", action: "check" },
         success: (res) => {
-          console.log("login ====", res);
-          userInfo.value = res.result;
-        },
-        complete: () => {
-          common_vendor.index.hideLoading();
+          if (res.result && res.result.data.length > 0)
+            selectSkill.value = res.result.data.map((item) => {
+              return { value: item.name, text: item.name };
+            });
         }
       });
-    }
+    });
     function editInfo() {
       common_vendor.index.navigateTo({ url: `/pages/editInfo/editInfo?openid=123456` });
     }

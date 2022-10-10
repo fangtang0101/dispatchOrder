@@ -14,37 +14,35 @@ const _sfc_main = {
   __name: "editInfo",
   setup(__props) {
     let userInfo = common_vendor.ref({});
-    let openid = common_vendor.ref("");
+    common_vendor.ref("");
     common_vendor.computed$1(() => {
       return userInfo.value.avatar ? userInfo.value.avatar : "../../static/logo.png";
     });
-    const selectWorkStatus = common_vendor.ref([{ value: 0, text: "\u5168\u804C" }, { value: 1, text: "\u517C\u804C" }]);
+    const selectWorkStatus = common_vendor.ref([{ value: "\u5168\u804C", text: "\u5168\u804C" }, { value: "\u517C\u804C", text: "\u517C\u804C" }]);
     const selectSkill = common_vendor.ref([{ value: "Node", text: "Node" }, { value: "uni-app", text: "uni-app" }]);
     common_vendor.onLoad((option) => {
-      openid.value = option.openid;
-      login();
-    });
-    function login() {
-      const data = { openid: openid.value, action: "login" };
+      if (getApp().globalData.useInfo) {
+        userInfo.value = getApp().globalData.useInfo;
+      }
       common_vendor.pn.callFunction({
-        name: "user",
-        data,
+        name: "dict",
+        data: { table: "skill", action: "check" },
         success: (res) => {
-          userInfo.value = res.result;
-        },
-        complete: () => {
-          common_vendor.index.hideLoading();
+          if (res.result && res.result.data.length > 0)
+            selectSkill.value = res.result.data.map((item) => {
+              return { value: item.name, text: item.name };
+            });
         }
       });
-    }
+    });
     function submit() {
-      const { work_status, response_count, skill_list, desc } = userInfo.value;
-      const data = { openid: openid.value, action: "update", work_status, response_count, skill_list, desc };
+      const { work_status, response_count, skill_list, desc, openid } = userInfo.value;
+      const data = { openid, action: "update", work_status, response_count, skill_list, desc };
       common_vendor.pn.callFunction({
         name: "user",
         data,
         success: (res) => {
-          console.log("login ====", res);
+          console.log("user \u6210\u529F ====", res);
           userInfo.value = res.result;
         },
         complete: () => {

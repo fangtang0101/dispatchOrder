@@ -159,18 +159,18 @@
 		"defaultValue":0
       },
       "work_status": {
-        "bsonType": "int",
+        "bsonType": "string",
         "description": "工作状态：0 全职 1 兼职",
         "title": "工作状态",
-        "defaultValue": 0,
+        "defaultValue": "全职",
         "enum": [
           {
             "text": "全职",
-            "value": 0
+            "value": "全职"
           },
           {
             "text": "兼职",
-            "value": 1
+            "value": "兼职"
           }
         ]
       },

@@ -64,7 +64,17 @@
 	})
 	const selectSkill = ref([{ value: 'Node', text: "Node" },{ value: 'uni-app', text: "uni-app" }])
 	onShow(()=>{
-		login()
+		console.log('app-userinfo===',getApp().globalData.useInfo)
+		if(getApp().globalData.useInfo){
+			userInfo.value = getApp().globalData.useInfo
+		}
+		uniCloud.callFunction({
+			name:'dict',
+			data:{table:'skill',action:'check'},
+			success:(res) => {			
+				if(res.result && res.result.data.length>0) selectSkill.value = res.result.data.map(item=>{return{value:item.name,text:item.name}})
+			}
+		})
 	})
 	function login(){
 		const data = {openid:'123456',action:'login'}
@@ -95,7 +105,7 @@
 			.header-top {
 				display: flex;
 				align-items: center;
-				img {
+				image {
 					width: 100rpx;
 					height: 100rpx;
 					border-radius: 50rpx;

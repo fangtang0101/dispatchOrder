@@ -32,11 +32,21 @@
 	let avatar = computed(()=>{
 		return userInfo.value.avatar ? userInfo.value.avatar : '../../static/logo.png'
 	})
-	const selectWorkStatus = ref([{ value: 0, text: "全职" },{ value: 1, text: "兼职" }])
+	const selectWorkStatus = ref([{ value: "全职", text: "全职" },{ value: "兼职", text: "兼职" }])
 	const selectSkill = ref([{ value: 'Node', text: "Node" },{ value: 'uni-app', text: "uni-app" }])
 	onLoad((option)=>{
-		 openid.value = option.openid
-		 login()
+		 // openid.value = option.openid
+		 // login()
+		if(getApp().globalData.useInfo){
+			userInfo.value = getApp().globalData.useInfo
+		}
+		uniCloud.callFunction({
+			name:'dict',
+			data:{table:'skill',action:'check'},
+			success:(res) => {			
+				if(res.result && res.result.data.length>0) selectSkill.value = res.result.data.map(item=>{return{value:item.name,text:item.name}})
+			}
+		})
 	})
 	function login(){
 		const data = {openid:openid.value,action:'login'}
@@ -52,13 +62,13 @@
 		})
 	}
 	function submit(){
-		const {work_status,response_count,skill_list,desc} = userInfo.value
-		const data = {openid:openid.value,action:'update',work_status,response_count,skill_list,desc}
+		const {work_status,response_count,skill_list,desc,openid} = userInfo.value
+		const data = {openid,action:'update',work_status,response_count,skill_list,desc}
 		uniCloud.callFunction({
 			name:'user',
 			data,
 			success:(res) => {
-				console.log('login ====',res)
+				console.log('user 成功 ====',res)
 				userInfo.value = res.result
 			},
 			complete:()=>{
